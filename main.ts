@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 // The entry: exactly one emoji — the desert island, the universal
 // dream-vacation picture.
@@ -19,3 +19,8 @@ if (codePoints.length > 4) {
 
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", ENTRY, "utf8");
+
+// Read-back check: the written entry must be byte-identical to ENTRY.
+if (readFileSync("/output/entry.txt", "utf8") !== ENTRY) {
+  throw new Error("read-back mismatch: entry.txt differs from ENTRY");
+}
