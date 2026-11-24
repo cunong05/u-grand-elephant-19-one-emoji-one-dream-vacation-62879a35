@@ -1,3 +1,4 @@
+// Entry: the single emoji 🏝️ — one emoji for one dream vacation.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 // The entry: exactly one emoji — the desert island, the universal
@@ -15,6 +16,9 @@ if (/\s/.test(ENTRY)) {
 }
 if (codePoints.length > 4) {
   throw new Error("entry must be at most 4 Unicode code points");
+}
+if (/[A-Za-z0-9]/.test(ENTRY)) {
+  throw new Error("entry must not contain ASCII letters or digits");
 }
 
 mkdirSync("/output", { recursive: true });
